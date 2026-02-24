@@ -584,3 +584,10 @@ body.quiz-open .quiz-screen{
 .contact-line .colon{
     font-weight: 800 !important;
 }
+
+/* keep all your existing CSS */
+
+/* NEW: utility class to hide the send button until reveal */
+.is-hidden{
+  display: none !important;
+}
