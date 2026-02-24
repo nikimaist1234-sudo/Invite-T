@@ -240,6 +240,9 @@ body.scroll-mode #page4{
     padding: 14px;
     border-radius: 14px;
     margin: 14px 0;
+
+    /* NEW: thin outline so it pops */
+    border: 1px solid rgba(0,0,0,0.35);
 }
 
 .dress-list{
@@ -252,12 +255,57 @@ body.scroll-mode #page4{
     font-size: 32px;
 }
 
+/* NEW: make Page 4 stack content + footer (fixes footer sitting beside content on mobile) */
+#page4{
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    gap: 18px;
+}
+
 .dark-footer{
     text-align: center;
     padding: 18px 0;
     background: #111;
     color: white;
     width: 100%;
+}
+
+/* --- Contact lines: aligned label : value --- */
+.contact-lines{
+    margin-top: 10px;
+}
+
+.contact-line{
+    display: grid;
+    grid-template-columns: auto 14px 1fr; /* label | : | value */
+    column-gap: 8px;
+    align-items: baseline;
+    margin: 8px 0;
+    font-size: 18px;           /* same size for both lines */
+    line-height: 1.35;
+}
+
+.contact-line .label{
+    font-weight: 800;          /* bold label */
+    white-space: nowrap;
+}
+
+.contact-line .colon{
+    font-weight: 800;          /* bold colon like label */
+    text-align: center;
+}
+
+.contact-line .value{
+    font-weight: 400;          /* normal value */
+}
+
+/* Mobile: keep it neat and prevent weird wraps */
+@media (max-width: 480px){
+    .contact-line{
+        font-size: 16px;
+        grid-template-columns: auto 12px 1fr;
+    }
 }
 
 /* ---------------- MOBILE RESPONSIVE ---------------- */
