@@ -125,88 +125,142 @@
         <button class="quiz-back-btn" id="quizBackBtn" type="button">← Back to invite</button>
 
         <h1 class="quiz-title">Which <span class="quiz-album">TRILOGY</span> song are you?</h1>
-        <p class="quiz-subtitle">10 quick picks. Soft reveal. Dark vibes.</p>
+        <p class="quiz-subtitle">15 quick picks. Soft reveal. Dark vibes.</p>
 
         <form id="quizForm" class="quiz-form" autocomplete="off">
 
+            <!-- NAME FIRST -->
             <div class="quiz-q">
-                <h3>1) Your 2AM vibe?</h3>
-                <label><input type="radio" name="q1" value="wicked-games"> I shouldn’t text… but I will.</label>
-                <label><input type="radio" name="q1" value="montreal"> Alone drive. City lights.</label>
-                <label><input type="radio" name="q1" value="the-morning"> Still outside. Still awake.</label>
-                <label><input type="radio" name="q1" value="valerie"> Quiet. In my head.</label>
+                <h3>Your name</h3>
+                <input
+                    id="guestName"
+                    name="guestName"
+                    type="text"
+                    class="quiz-name"
+                    placeholder="Type your name…"
+                    maxlength="30"
+                    required
+                />
             </div>
 
             <div class="quiz-q">
-                <h3>2) Pick a setting</h3>
-                <label><input type="radio" name="q2" value="high-for-this"> Dark room, close distance.</label>
-                <label><input type="radio" name="q2" value="coming-down"> Afterparty haze.</label>
-                <label><input type="radio" name="q2" value="the-fall"> Cold air, empty street.</label>
-                <label><input type="radio" name="q2" value="next"> Hotel bed, no feelings.</label>
+                <h3>1) If you had to pick one guilty-pleasure snack at midnight, what is it?</h3>
+                <label><input type="radio" name="q1" value="wicked-games"> Chips + something spicy.</label>
+                <label><input type="radio" name="q1" value="valerie"> Chocolate, always.</label>
+                <label><input type="radio" name="q1" value="the-morning"> Ice cream straight from the tub.</label>
+                <label><input type="radio" name="q1" value="montreal"> Whatever’s in the fridge… creatively.</label>
             </div>
 
             <div class="quiz-q">
-                <h3>3) Your biggest weakness?</h3>
-                <label><input type="radio" name="q3" value="wicked-games"> Temptation.</label>
-                <label><input type="radio" name="q3" value="montreal"> Nostalgia.</label>
-                <label><input type="radio" name="q3" value="coming-down"> Escapism.</label>
-                <label><input type="radio" name="q3" value="next"> Detachment.</label>
+                <h3>2) Which city would you most like to wander through on a sunny afternoon?</h3>
+                <label><input type="radio" name="q2" value="montreal"> A city with pretty streets + cafés.</label>
+                <label><input type="radio" name="q2" value="the-morning"> Somewhere loud, bright, and busy.</label>
+                <label><input type="radio" name="q2" value="angel"> Somewhere calm with art + views.</label>
+                <label><input type="radio" name="q2" value="the-fall"> Somewhere moody with night lights.</label>
             </div>
 
             <div class="quiz-q">
-                <h3>4) Pick a “movie scene”</h3>
-                <label><input type="radio" name="q4" value="the-morning"> Neon sign flicker.</label>
-                <label><input type="radio" name="q4" value="valerie"> Rain on the window.</label>
-                <label><input type="radio" name="q4" value="twenty-eight"> Elevator doors closing.</label>
-                <label><input type="radio" name="q4" value="the-fall"> Falling backwards in slow motion.</label>
+                <h3>3) If you could be known for one positive trait, what would you choose?</h3>
+                <label><input type="radio" name="q3" value="angel"> Kind-hearted.</label>
+                <label><input type="radio" name="q3" value="the-morning"> Confident.</label>
+                <label><input type="radio" name="q3" value="twenty-eight"> Independent.</label>
+                <label><input type="radio" name="q3" value="high-for-this"> Magnetic / unforgettable.</label>
             </div>
 
             <div class="quiz-q">
-                <h3>5) Your love style?</h3>
-                <label><input type="radio" name="q5" value="high-for-this"> Intense, risky.</label>
-                <label><input type="radio" name="q5" value="valerie"> Soft but hurt.</label>
-                <label><input type="radio" name="q5" value="next"> Don’t get attached.</label>
-                <label><input type="radio" name="q5" value="montreal"> I’ll miss you quietly.</label>
+                <h3>4) Which language would you love to learn just for fun?</h3>
+                <label><input type="radio" name="q4" value="montreal"> French.</label>
+                <label><input type="radio" name="q4" value="valerie"> Italian.</label>
+                <label><input type="radio" name="q4" value="the-morning"> Spanish.</label>
+                <label><input type="radio" name="q4" value="next"> Japanese.</label>
             </div>
 
             <div class="quiz-q">
-                <h3>6) Choose a color</h3>
-                <label><input type="radio" name="q6" value="wicked-games"> Deep red.</label>
-                <label><input type="radio" name="q6" value="montreal"> Midnight blue.</label>
-                <label><input type="radio" name="q6" value="the-morning"> Gold.</label>
-                <label><input type="radio" name="q6" value="coming-down"> Grey smoke.</label>
+                <h3>5) Are you more of a morning coffee person or a late-night tea person?</h3>
+                <label><input type="radio" name="q5" value="the-morning"> Morning coffee. Don’t speak to me before it.</label>
+                <label><input type="radio" name="q5" value="valerie"> Late-night tea. Calm vibes only.</label>
+                <label><input type="radio" name="q5" value="coming-down"> Depends on the day… and the mood.</label>
+                <label><input type="radio" name="q5" value="next"> Neither. I’m just surviving.</label>
             </div>
 
             <div class="quiz-q">
-                <h3>7) People describe you as…</h3>
-                <label><input type="radio" name="q7" value="high-for-this"> Magnetic.</label>
-                <label><input type="radio" name="q7" value="next"> Unreadable.</label>
-                <label><input type="radio" name="q7" value="angel"> Tender but guarded.</label>
-                <label><input type="radio" name="q7" value="the-fall"> A little self-destructive.</label>
+                <h3>6) Which season makes you feel most energized?</h3>
+                <label><input type="radio" name="q6" value="the-morning"> Summer.</label>
+                <label><input type="radio" name="q6" value="montreal"> Spring.</label>
+                <label><input type="radio" name="q6" value="the-fall"> Winter.</label>
+                <label><input type="radio" name="q6" value="twenty-eight"> Autumn.</label>
             </div>
 
             <div class="quiz-q">
-                <h3>8) Your comfort zone?</h3>
-                <label><input type="radio" name="q8" value="wicked-games"> Being wanted.</label>
-                <label><input type="radio" name="q8" value="montreal"> Being alone.</label>
-                <label><input type="radio" name="q8" value="the-morning"> Being in control.</label>
-                <label><input type="radio" name="q8" value="coming-down"> Being numb.</label>
+                <h3>7) When you finish a TV series…</h3>
+                <label><input type="radio" name="q7" value="the-morning"> Start another immediately.</label>
+                <label><input type="radio" name="q7" value="montreal"> I take a break to recover.</label>
+                <label><input type="radio" name="q7" value="coming-down"> Rewatch my comfort show.</label>
+                <label><input type="radio" name="q7" value="next"> I spoil it for myself anyway.</label>
             </div>
 
             <div class="quiz-q">
-                <h3>9) Pick a phrase</h3>
-                <label><input type="radio" name="q9" value="twenty-eight"> One more time.</label>
-                <label><input type="radio" name="q9" value="next"> Don’t fall for me.</label>
-                <label><input type="radio" name="q9" value="angel"> I’m trying.</label>
-                <label><input type="radio" name="q9" value="the-fall"> I can’t stop.</label>
+                <h3>8) Pick your ideal weekend:</h3>
+                <label><input type="radio" name="q8" value="high-for-this"> A party where anything can happen.</label>
+                <label><input type="radio" name="q8" value="montreal"> A cute brunch + walking around.</label>
+                <label><input type="radio" name="q8" value="valerie"> Cozy movie night.</label>
+                <label><input type="radio" name="q8" value="the-fall"> Late-night drive with music.</label>
             </div>
 
             <div class="quiz-q">
-                <h3>10) Be honest…</h3>
-                <label><input type="radio" name="q10" value="high-for-this"> You chase thrill.</label>
-                <label><input type="radio" name="q10" value="valerie"> You romanticize pain.</label>
-                <label><input type="radio" name="q10" value="twenty-eight"> You outgrow people fast.</label>
-                <label><input type="radio" name="q10" value="angel"> You hide feelings well.</label>
+                <h3>9) Your group-chat role?</h3>
+                <label><input type="radio" name="q9" value="the-morning"> The planner / hype person.</label>
+                <label><input type="radio" name="q9" value="angel"> The therapist friend.</label>
+                <label><input type="radio" name="q9" value="next"> The one who disappears then returns like nothing happened.</label>
+                <label><input type="radio" name="q9" value="wicked-games"> The one who drops chaotic voice notes.</label>
+            </div>
+
+            <div class="quiz-q">
+                <h3>10) Pick a vibe word:</h3>
+                <label><input type="radio" name="q10" value="coming-down"> Dreamy.</label>
+                <label><input type="radio" name="q10" value="the-fall"> Intense.</label>
+                <label><input type="radio" name="q10" value="twenty-eight"> Quiet power.</label>
+                <label><input type="radio" name="q10" value="high-for-this"> Dangerous fun.</label>
+            </div>
+
+            <div class="quiz-q">
+                <h3>11) If you’re stressed, you usually…</h3>
+                <label><input type="radio" name="q11" value="valerie"> Disappear and recharge alone.</label>
+                <label><input type="radio" name="q11" value="the-morning"> Keep busy and pretend it’s fine.</label>
+                <label><input type="radio" name="q11" value="coming-down"> Overthink at 2AM.</label>
+                <label><input type="radio" name="q11" value="next"> Act unbothered (but I’m bothered).</label>
+            </div>
+
+            <div class="quiz-q">
+                <h3>12) Pick a “treat yourself” moment:</h3>
+                <label><input type="radio" name="q12" value="montreal"> New perfume / smelling expensive.</label>
+                <label><input type="radio" name="q12" value="the-morning"> New outfit for no reason.</label>
+                <label><input type="radio" name="q12" value="angel"> A slow self-care night.</label>
+                <label><input type="radio" name="q12" value="wicked-games"> Flirting for sport.</label>
+            </div>
+
+            <div class="quiz-q">
+                <h3>13) Your playlists are mostly…</h3>
+                <label><input type="radio" name="q13" value="the-fall"> Dark bangers.</label>
+                <label><input type="radio" name="q13" value="valerie"> Sad songs that hit.</label>
+                <label><input type="radio" name="q13" value="the-morning"> Confident energy.</label>
+                <label><input type="radio" name="q13" value="coming-down"> Late-night floaty vibes.</label>
+            </div>
+
+            <div class="quiz-q">
+                <h3>14) Pick a “main character” moment:</h3>
+                <label><input type="radio" name="q14" value="high-for-this"> Walking in like you own the room.</label>
+                <label><input type="radio" name="q14" value="twenty-eight"> Leaving quietly with your peace.</label>
+                <label><input type="radio" name="q14" value="montreal"> Looking out the window with music on.</label>
+                <label><input type="radio" name="q14" value="next"> Saying “I’m fine” and meaning the opposite.</label>
+            </div>
+
+            <div class="quiz-q">
+                <h3>15) Be honest: your toxic habit is… (light one 😭)</h3>
+                <label><input type="radio" name="q15" value="wicked-games"> I reply fast then act unavailable.</label>
+                <label><input type="radio" name="q15" value="coming-down"> I romanticize everything.</label>
+                <label><input type="radio" name="q15" value="the-fall"> I do the most… then regret it later.</label>
+                <label><input type="radio" name="q15" value="angel"> I care too much sometimes.</label>
             </div>
 
             <button class="quiz-finish-btn" id="quizFinishBtn" type="button">Reveal my song</button>
@@ -214,7 +268,10 @@
 
         <div class="quiz-result" id="quizResult" aria-live="polite">
             <div class="quiz-result-inner fade-soft" id="quizResultInner"></div>
+
             <img id="resultCover" class="result-cover" alt="Song cover" />
+            <p id="resultBlurb" class="result-blurb"></p>
+
             <div class="quiz-result-actions">
                 <button class="quiz-retry-btn" id="quizRetryBtn" type="button">Try again</button>
                 <button class="quiz-close-btn" id="quizCloseBtn" type="button">Back to invite</button>
