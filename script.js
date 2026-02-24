@@ -25,13 +25,8 @@ function showOnlyPage(pageNumber){
 }
 
 startBtn?.addEventListener("click", () => {
-    // Open Page 1 (balloon game)
     showOnlyPage(1);
-
-    // Start music as soon as Page 1 opens (user gesture = allowed)
     startMusic();
-
-    // Build clustered balloons
     buildBalloons(BALLOON_COUNT);
 });
 
@@ -60,14 +55,10 @@ function buildBalloons(count){
     balloonContainer.innerHTML = "";
     poppedCount = 0;
 
-    // Get container size after it is visible
     const rect = balloonContainer.getBoundingClientRect();
-
-    // Cluster around the center
     const cx = rect.width / 2;
     const cy = rect.height / 2;
 
-    // Pre-made cluster offsets (tight bunch)
     const offsets = [
         {x: -40, y: -10},
         {x:  40, y: -10},
@@ -80,14 +71,12 @@ function buildBalloons(count){
         const b = document.createElement("div");
         b.className = "balloon-piece " + (i % 2 === 0 ? "white" : "black");
 
-        // add small random jitter so it feels organic
         const jitterX = rand(-10, 10);
         const jitterY = rand(-8, 8);
 
         const ox = offsets[i % offsets.length].x + jitterX;
         const oy = offsets[i % offsets.length].y + jitterY;
 
-        // clamp so balloons don't go out of bounds
         const pad = 50;
         const x = clamp(cx + ox, pad, rect.width - pad);
         const y = clamp(cy + oy, pad, rect.height - pad);
@@ -95,7 +84,6 @@ function buildBalloons(count){
         b.style.left = x + "px";
         b.style.top = y + "px";
 
-        // random float timing so they don't all sync
         b.style.animationDuration = rand(2200, 3200) + "ms";
         b.style.animationDelay = rand(0, 450) + "ms";
 
@@ -112,7 +100,6 @@ function popBalloon(el){
 
     poppedCount++;
 
-    // IMPORTANT: no confetti until ALL balloons are popped
     if(poppedCount >= BALLOON_COUNT){
         xoConfettiBurst(XO_BURST_FINISH);
         finishGame();
@@ -121,11 +108,9 @@ function popBalloon(el){
 
 /* ---------------- FINISH: enable scroll from Show Up to end ---------------- */
 function finishGame(){
-    // enable scrolling + stack pages 2-4
     document.body.classList.remove("locked");
     document.body.classList.add("scroll-mode");
 
-    // jump to page2
     const page2 = document.getElementById("page2");
     setTimeout(() => {
         page2?.scrollIntoView({ behavior: "smooth" });
@@ -147,7 +132,7 @@ function xoConfettiBurst(amount){
         piece.textContent = "XO";
 
         const left = rand(0, window.innerWidth);
-        const duration = rand(1400, 2600); // ms
+        const duration = rand(1400, 2600);
         const drift = rand(-120, 120) + "px";
         const rot = rand(-540, 540) + "deg";
 
@@ -189,6 +174,9 @@ const quizResult = document.getElementById("quizResult");
 const quizResultInner = document.getElementById("quizResultInner");
 const quizOverlay = document.getElementById("quizOverlay");
 const resultCover = document.getElementById("resultCover");
+const resultBlurb = document.getElementById("resultBlurb");
+
+const guestNameInput = document.getElementById("guestName");
 
 const resultAudio = document.getElementById("resultAudio");
 
@@ -219,6 +207,20 @@ const SONG_PRETTY = {
   "high-for-this": "High for This"
 };
 
+// NEW: personality phrases under the cover
+const SONG_BLURB = {
+  "wicked-games": "You’re playful, bold, and you know the power of a little chaos. You flirt with life (and maybe people) for fun.",
+  "montreal": "You’re the main character on a quiet walk with music in your ears. Soft, dreamy, and a little nostalgic.",
+  "the-morning": "Confidence is your thing. You show up, you shine, you don’t apologize — energy stays high.",
+  "coming-down": "You feel things deeply but you keep it cute. You’re the vibe, the mood, the late-night thoughts.",
+  "twenty-eight": "Independent with a soft side. You protect your peace and you don’t force what doesn’t fit.",
+  "valerie": "You’re gentle, emotional in the best way, and you romanticize the little moments. Soft heart, strong mind.",
+  "angel": "You’re loyal and caring — the friend people trust. You give warmth without needing attention.",
+  "next": "You act unbothered but you’re actually hilarious and sharp. You keep boundaries and you mean them.",
+  "the-fall": "You live for intensity. Big energy, big feelings, big “main character” moments — and you own it.",
+  "high-for-this": "You’re magnetic. You love excitement and you bring a fearless vibe wherever you go."
+};
+
 let _inviteWasPlaying = false;
 let _inviteTime = 0;
 let _scrollYBeforeQuiz = 0;
@@ -237,7 +239,6 @@ function enterQuizAudioMode(){
   _inviteWasPlaying = !music.paused;
   _inviteTime = music.currentTime || 0;
 
-  // Hard pause invite music (quiz must be silent)
   music.pause();
 }
 
@@ -257,17 +258,12 @@ function exitQuizAudioMode(){
 function openQuiz(){
   _scrollYBeforeQuiz = window.scrollY || 0;
 
-  // stop invite audio & keep quiz silent
   enterQuizAudioMode();
-
-  // reset UI
   resetQuizUI();
 
-  // show overlay
   document.body.classList.add("quiz-open");
   if(quizScreen) quizScreen.setAttribute("aria-hidden", "false");
 
-  // jump top of quiz overlay
   setTimeout(() => {
     if(quizScreen) quizScreen.scrollTop = 0;
     window.scrollTo({ top: 0, behavior: "auto" });
@@ -303,6 +299,9 @@ function resetQuizUI(){
     resultCover.classList.remove("show");
     resultCover.removeAttribute("src");
   }
+  if(resultBlurb){
+    resultBlurb.textContent = "";
+  }
   if(quizOverlay){
     quizOverlay.classList.remove("on");
   }
@@ -311,38 +310,46 @@ function resetQuizUI(){
 function computeQuizResult(){
   if(!quizForm) return { error: "Quiz not found." };
 
+  const guestName = (guestNameInput?.value || "").trim();
+
+  if(!guestName){
+    return { error: "Enter your name first." };
+  }
+
   const scores = Object.fromEntries(SONG_KEYS.map(k => [k, 0]));
   const data = new FormData(quizForm);
 
-  for(const [, value] of data.entries()){
+  // Score only q1..q15 (ignore guestName)
+  for(const [key, value] of data.entries()){
+    if(key === "guestName") continue;
     if(scores[value] !== undefined) scores[value] += 1;
   }
 
-  const totalQuestions = quizForm.querySelectorAll(".quiz-q").length;
-  const answeredCount = [...new Set([...data.keys()])].length;
+  const totalQuestions = 15;
+  let answered = 0;
+  for(let i = 1; i <= totalQuestions; i++){
+    if(data.get("q" + i)) answered++;
+  }
 
-  if(answeredCount < totalQuestions){
-    return { error: "Answer all 10 questions first." };
+  if(answered < totalQuestions){
+    return { error: "Answer all 15 questions first." };
   }
 
   const max = Math.max(...Object.values(scores));
   const top = Object.keys(scores).filter(k => scores[k] === max);
   const chosen = top[Math.floor(Math.random() * top.length)];
 
-  return { chosen };
+  return { chosen, guestName };
 }
 
 function playResultSong(songKey){
-  // make sure invite is paused
   if(music) music.pause();
 
-  // cover
   if(resultCover){
     resultCover.src = `${songKey}.jpg`;
     resultCover.classList.add("show");
   }
 
-  // play mp3
   if(resultAudio){
     resultAudio.pause();
     resultAudio.currentTime = 0;
@@ -352,16 +359,33 @@ function playResultSong(songKey){
   }
 }
 
-function revealQuizResult(songKey){
+// NEW: open WhatsApp chat with prefilled message (guest still taps Send)
+function openWhatsAppPrefill(guestName, songKey){
+  const pretty = SONG_PRETTY[songKey] || songKey;
+  const msg = `Trilogy Quiz ✅%0AName: ${guestName}%0ASong: ${pretty}`;
+  // SA number format: 27 + number without leading 0
+  const url = `https://wa.me/27813270172?text=${msg}`;
+  try{
+    window.open(url, "_blank");
+  }catch(e){
+    // If blocked, do nothing (some browsers block popups)
+  }
+}
+
+function revealQuizResult(songKey, guestName){
   if(!quizResult || !quizResultInner) return;
 
   quizResult.style.display = "block";
 
+  // CHANGED: removed "Let it play" text
   quizResultInner.classList.remove("show");
   quizResultInner.innerHTML = `
-    <h2>You are <span>${SONG_PRETTY[songKey] || "a Mystery Track"}</span></h2>
-    <p>Let it play.</p>
+    <h2>${guestName}, you are <span>${SONG_PRETTY[songKey] || "a Mystery Track"}</span></h2>
   `;
+
+  if(resultBlurb){
+    resultBlurb.textContent = SONG_BLURB[songKey] || "";
+  }
 
   if(quizOverlay){
     quizOverlay.classList.add("on");
@@ -373,6 +397,16 @@ function revealQuizResult(songKey){
   });
 
   playResultSong(songKey);
+
+  // CHANGED: auto scroll down to reveal
+  setTimeout(() => {
+    quizResult.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, 150);
+
+  // CHANGED: auto-open WhatsApp with prefilled message (guest taps Send)
+  setTimeout(() => {
+    openWhatsAppPrefill(guestName, songKey);
+  }, 700);
 }
 
 /* Buttons */
@@ -393,9 +427,15 @@ quizFinishBtn?.addEventListener("click", () => {
     quizResult.style.display = "block";
     quizResultInner.classList.remove("show");
     quizResultInner.innerHTML = `<h2>Hold up</h2><p>${res.error}</p>`;
+    if(resultBlurb) resultBlurb.textContent = "";
     requestAnimationFrame(() => quizResultInner.classList.add("show"));
+
+    setTimeout(() => {
+      quizResult.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 120);
+
     return;
   }
 
-  revealQuizResult(res.chosen);
+  revealQuizResult(res.chosen, res.guestName);
 });
