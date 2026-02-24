@@ -240,8 +240,6 @@ body.scroll-mode #page4{
     padding: 14px;
     border-radius: 14px;
     margin: 14px 0;
-
-    /* NEW: thin outline so it pops */
     border: 1px solid rgba(0,0,0,0.35);
 }
 
@@ -270,26 +268,26 @@ body.scroll-mode #page4{
 
 .contact-line{
     display: grid;
-    grid-template-columns: auto 14px 1fr; /* label | : | value */
+    grid-template-columns: auto 14px 1fr;
     column-gap: 8px;
     align-items: baseline;
     margin: 8px 0;
-    font-size: 18px;           /* same size for both lines */
+    font-size: 18px;
     line-height: 1.35;
 }
 
 .contact-line .label{
-    font-weight: 800;          /* bold label */
+    font-weight: 800;
     white-space: nowrap;
 }
 
 .contact-line .colon{
-    font-weight: 800;          /* bold colon like label */
+    font-weight: 800;
     text-align: center;
 }
 
 .contact-line .value{
-    font-weight: 400;          /* normal value */
+    font-weight: 400;
 }
 
 /* Mobile: keep it neat and prevent weird wraps */
@@ -332,7 +330,10 @@ body.quiz-open{
     inset: 0;
     z-index: 9999;
     display: none;
-    background: rgba(0,0,0,0.92);
+
+    /* CHANGED: mid-grey between black and white */
+    background: rgba(120,120,120,0.92);
+
     backdrop-filter: blur(8px);
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
@@ -351,8 +352,8 @@ body.quiz-open .quiz-screen{
 }
 
 .quiz-back-btn{
-    border: 1px solid rgba(255,255,255,0.12);
-    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.22);
+    background: rgba(255,255,255,0.10);
     color: #fff;
     padding: 10px 12px;
     border-radius: 12px;
@@ -365,10 +366,11 @@ body.quiz-open .quiz-screen{
     letter-spacing: 0.3px;
     margin-bottom: 6px;
     color: #fff;
+    text-shadow: 0 1px 10px rgba(0,0,0,0.25);
 }
 
 .quiz-subtitle{
-    opacity: 0.85;
+    opacity: 0.9;
     margin-bottom: 18px;
     color: #fff;
 }
@@ -386,8 +388,8 @@ body.quiz-open .quiz-screen{
 .quiz-q{
     padding: 16px;
     border-radius: 16px;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.18);
 }
 
 .quiz-q h3{
@@ -396,31 +398,50 @@ body.quiz-open .quiz-screen{
     color: #fff;
 }
 
+/* Name input */
+.quiz-name{
+    width: 100%;
+    padding: 12px 12px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.28);
+    background: rgba(0,0,0,0.15);
+    color: #fff;
+    outline: none;
+    font-size: 16px;
+}
+
+.quiz-name::placeholder{
+    color: rgba(255,255,255,0.75);
+}
+
 .quiz-q label{
     display: block;
     padding: 10px 10px;
     margin: 8px 0;
     border-radius: 12px;
-    background: rgba(0,0,0,0.25);
-    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(0,0,0,0.18);
+    border: 1px solid rgba(255,255,255,0.18);
     cursor: pointer;
     user-select: none;
-    color: rgba(255,255,255,0.92);
+    color: rgba(255,255,255,0.95);
 }
 
-.quiz-q input{
+.quiz-q input[type="radio"]{
     margin-right: 10px;
     transform: translateY(1px);
 }
 
+/* CHANGED: Reveal button text 2px bigger */
 .quiz-finish-btn{
     margin-top: 4px;
     padding: 12px 16px;
     border-radius: 14px;
-    border: 1px solid rgba(255,255,255,0.18);
-    background: rgba(255,255,255,0.10);
+    border: 1px solid rgba(255,255,255,0.24);
+    background: rgba(255,255,255,0.16);
     color: #fff;
     cursor: pointer;
+    font-size: 18px; /* +2ish */
+    font-weight: 700;
 }
 
 .quiz-finish-btn:active{ transform: scale(0.99); }
@@ -430,8 +451,8 @@ body.quiz-open .quiz-screen{
     margin-top: 16px;
     padding: 16px;
     border-radius: 18px;
-    border: 1px solid rgba(255,255,255,0.12);
-    background: rgba(0,0,0,0.55);
+    border: 1px solid rgba(255,255,255,0.22);
+    background: rgba(0,0,0,0.35);
     position: relative;
     overflow: hidden;
 }
@@ -439,11 +460,6 @@ body.quiz-open .quiz-screen{
 .quiz-result-inner h2{
     font-size: 20px;
     margin-bottom: 6px;
-    color: #fff;
-}
-
-.quiz-result-inner p{
-    opacity: 0.9;
     color: #fff;
 }
 
@@ -462,10 +478,19 @@ body.quiz-open .quiz-screen{
     margin-top: 14px;
     border-radius: 18px;
     display: none;
-    border: 1px solid rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.18);
 }
 
 .result-cover.show{ display:block; }
+
+/* NEW: blurb under cover */
+.result-blurb{
+    margin-top: 10px;
+    font-size: 15px;
+    line-height: 1.45;
+    color: rgba(255,255,255,0.95);
+    opacity: 0.95;
+}
 
 .quiz-result-actions{
     display: flex;
@@ -478,8 +503,8 @@ body.quiz-open .quiz-screen{
 .quiz-close-btn{
     padding: 10px 14px;
     border-radius: 12px;
-    border: 1px solid rgba(255,255,255,0.14);
-    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.18);
+    background: rgba(255,255,255,0.12);
     color: #fff;
     cursor: pointer;
 }
@@ -489,7 +514,7 @@ body.quiz-open .quiz-screen{
     position: absolute;
     inset: 0;
     opacity: 0;
-    background: radial-gradient(circle at center, rgba(200,200,255,0.16), rgba(0,0,0,0.0) 60%);
+    background: radial-gradient(circle at center, rgba(255,255,255,0.18), rgba(0,0,0,0.0) 60%);
     transition: opacity 0.5s ease;
 }
 
@@ -533,7 +558,6 @@ body.quiz-open .quiz-screen{
 }
 
 /* ---------------- PAGE 4: STICKY FOOTER + MOBILE ORDER FIX ---------------- */
-/* Make Page 4 a true column layout so footer stays at the bottom and content stays above it */
 #page4{
     display: flex;
     flex-direction: column;
@@ -543,22 +567,19 @@ body.quiz-open .quiz-screen{
     min-height: 100vh;
 }
 
-/* Content wrapper takes remaining height, pushing footer down */
 #page4 .page4-content{
     flex: 1;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-bottom: 18px; /* breathing room above footer */
+    padding-bottom: 18px;
 }
 
-/* Footer always last, always full-width */
 #page4 .dark-footer{
     margin-top: auto;
     width: 100%;
 }
 
-/* Force label/colon to stay bold on all devices/browsers */
 .contact-line .label,
 .contact-line .colon{
     font-weight: 800 !important;
