@@ -9,7 +9,6 @@
 
 <body class="locked">
 
-<!-- PAGE 0 (NEW) -->
 <section id="page0" class="page active volume-page">
     <div class="overlay volume-overlay">
         <h1 class="big-title">Please turn your volume up</h1>
@@ -18,7 +17,6 @@
     </div>
 </section>
 
-<!-- PAGE 1 -->
 <section id="page1" class="page">
     <div class="overlay">
         <h1 class="big-title">You're Invited</h1>
@@ -31,7 +29,6 @@
     </div>
 </section>
 
-<!-- PAGE 2 -->
 <section id="page2" class="page light-page">
     <div class="two-column">
         <div class="left">
@@ -54,7 +51,6 @@
     </div>
 </section>
 
-<!-- PAGE 3 -->
 <section id="page3" class="page light-page dress-layout">
     <div class="two-column">
         <div class="left">
@@ -79,7 +75,6 @@
     </div>
 </section>
 
-<!-- PAGE 4 -->
 <section id="page4" class="page light-page contact-layout">
     <div class="page4-content">
         <div class="two-column">
@@ -103,7 +98,6 @@
 
                 <br><br>
 
-                <!-- QUIZ TEASER -->
                 <div class="quiz-teaser">
                     <h2 class="quiz-teaser-title">Find out what song you are from in <span class="quiz-album">TRILOGY</span></h2>
                     <p class="quiz-teaser-sub">Participate if you want</p>
@@ -118,8 +112,6 @@
     </footer>
 </section>
 
-
-<!-- QUIZ SCREEN (Overlay) -->
 <section id="pageQuiz" class="quiz-screen" aria-hidden="true">
     <div class="quiz-inner">
         <button class="quiz-back-btn" id="quizBackBtn" type="button">← Back to invite</button>
@@ -128,8 +120,6 @@
         <p class="quiz-subtitle">15 quick picks. Soft reveal. Dark vibes.</p>
 
         <form id="quizForm" class="quiz-form" autocomplete="off">
-
-            <!-- NAME FIRST -->
             <div class="quiz-q">
                 <h3>Your name</h3>
                 <input
@@ -143,13 +133,7 @@
                 />
             </div>
 
-            <!-- NOTE:
-                 Fair scoring: Across ALL 60 answer options (15 questions x 4 choices),
-                 each song appears EXACTLY 6 times.
-                 Songs used (10): wicked-games, valerie, the-morning, montreal, angel,
-                                 the-fall, twenty-eight, high-for-this, coming-down, next
-            -->
-
+            <!-- QUESTIONS (same as last version) -->
             <div class="quiz-q">
                 <h3>1) If you had to pick one guilty-pleasure snack at midnight, what is it?</h3>
                 <label><input type="radio" name="q1" value="wicked-games"> Chips + something spicy.</label>
@@ -281,6 +265,10 @@
 
             <div class="quiz-result-actions">
                 <button class="quiz-retry-btn" id="quizRetryBtn" type="button">Try again</button>
+
+                <!-- NOW HIDDEN UNTIL REVEAL -->
+                <button class="quiz-send-btn is-hidden" id="quizSendBtn" type="button">Send your song</button>
+
                 <button class="quiz-close-btn" id="quizCloseBtn" type="button">Back to invite</button>
             </div>
         </div>
@@ -289,10 +277,7 @@
     </div>
 </section>
 
-<!-- Result Audio (separate from invite music) -->
 <audio id="resultAudio" preload="auto"></audio>
-
-<!-- Audio -->
 <audio id="bgMusic" src="montreal.mp3" preload="auto"></audio>
 
 <script src="script.js"></script>
