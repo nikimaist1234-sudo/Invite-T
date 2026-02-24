@@ -255,14 +255,6 @@ body.scroll-mode #page4{
     font-size: 32px;
 }
 
-/* NEW: make Page 4 stack content + footer (fixes footer sitting beside content on mobile) */
-#page4{
-    flex-direction: column;
-    align-items: stretch;
-    justify-content: center;
-    gap: 18px;
-}
-
 .dark-footer{
     text-align: center;
     padding: 18px 0;
@@ -538,4 +530,36 @@ body.quiz-open .quiz-screen{
     .quiz-title{ font-size: 22px; }
     .quiz-q{ padding: 14px; }
     .quiz-q label{ padding: 10px; }
+}
+
+/* ---------------- PAGE 4: STICKY FOOTER + MOBILE ORDER FIX ---------------- */
+/* Make Page 4 a true column layout so footer stays at the bottom and content stays above it */
+#page4{
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 0;
+    min-height: 100vh;
+}
+
+/* Content wrapper takes remaining height, pushing footer down */
+#page4 .page4-content{
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 18px; /* breathing room above footer */
+}
+
+/* Footer always last, always full-width */
+#page4 .dark-footer{
+    margin-top: auto;
+    width: 100%;
+}
+
+/* Force label/colon to stay bold on all devices/browsers */
+.contact-line .label,
+.contact-line .colon{
+    font-weight: 800 !important;
 }
