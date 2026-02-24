@@ -162,11 +162,27 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ---------- Start button ---------- */
-  startBtn?.addEventListener("click", () => {
+  function startExperience() {
     showOnlyPage(1);
     startMusic();
     buildBalloons(BALLOON_COUNT);
-  });
+  }
+
+  // Mobile-proof start: some phones/iOS Safari can miss click events when the page is "locked"
+  // so we listen to pointer/touch as well. We also guard so it only runs once.
+  if (startBtn) {
+    let started = false;
+    const onceStart = (e) => {
+      if (started) return;
+      started = true;
+      e?.preventDefault?.();
+      startExperience();
+    };
+
+    startBtn.addEventListener("pointerup", onceStart, { passive: false });
+    startBtn.addEventListener("touchend", onceStart, { passive: false });
+    startBtn.addEventListener("click", onceStart);
+  }
 
   /* ===========================
      QUIZ
