@@ -1,0 +1,493 @@
+/* ---------------- RESET ---------------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+html, body {
+    height: 100%;
+    background: black;
+}
+
+/* ---------------- PAGE SYSTEM (Initial: Smooth Transitions) ---------------- */
+.page {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100vh;
+    padding: 40px;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: scale(0.98);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.page.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: scale(1);
+}
+
+/* ---------------- LOCK + SCROLL MODES ---------------- */
+body.locked{
+    height: 100vh;
+    overflow: hidden;
+}
+
+body.scroll-mode{
+    background: #e5e5e5;
+    overflow-y: auto;
+}
+
+/* When scroll mode is on:
+   - hide the intro pages
+   - stack pages 2-4 normally and make them visible */
+body.scroll-mode #page0,
+body.scroll-mode #page1{
+    display: none;
+}
+
+body.scroll-mode .page{
+    position: relative;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: none;
+    transition: none;
+    padding: 40px;
+}
+
+body.scroll-mode #page2,
+body.scroll-mode #page3,
+body.scroll-mode #page4{
+    display: flex;
+}
+
+body.scroll-mode #page4{
+    padding-bottom: 0;
+}
+
+/* ---------------- PAGE 0: VOLUME ---------------- */
+.volume-page{
+    background: url("weeknd-bg.jpg") no-repeat center center/cover;
+}
+
+.volume-overlay{
+    text-align: center;
+    color: white;
+}
+
+.primary{
+    margin-top: 20px;
+    padding: 14px 22px;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    background: white;
+    color: black;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+/* ---------------- PAGE 1: INVITE + BALLOONS ---------------- */
+#page1{
+    background: url("weeknd-bg.jpg") no-repeat center center/cover;
+}
+
+.overlay{
+    text-align: center;
+    color: white;
+}
+
+.big-title{
+    font-size: 36px;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+}
+
+.balloon-area{
+    margin-top: 20px;
+}
+
+.balloon-hint{
+    font-size: 18px;
+    margin-bottom: 14px;
+}
+
+.balloon-container{
+    position: relative;
+    width: min(560px, 92vw);
+    height: 420px;
+    margin: 0 auto;
+    border-radius: 18px;
+    background: rgba(0,0,0,0.25);
+    border: 1px solid rgba(255,255,255,0.15);
+    overflow: hidden;
+}
+
+.balloon-piece{
+    position: absolute;
+    width: 75px;
+    height: 95px;
+    border-radius: 50% 50% 48% 48%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    animation: floaty 2.8s ease-in-out infinite;
+    box-shadow: 0 0 12px rgba(255,255,255,0.15);
+}
+
+.balloon-piece.white{ background: rgba(240,240,240,0.92); }
+.balloon-piece.black{ background: rgba(20,20,20,0.92); }
+
+.balloon-piece::after{
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -26px;
+    width: 2px;
+    height: 28px;
+    background: rgba(255,255,255,0.35);
+    transform: translateX(-50%);
+}
+
+.balloon-piece.popped{
+    transform: translate(-50%, -50%) scale(0.7);
+    opacity: 0;
+    transition: opacity 0.18s ease, transform 0.18s ease;
+}
+
+@keyframes floaty{
+    0%,100%{ transform: translate(-50%, -50%) translateY(0); }
+    50%{ transform: translate(-50%, -50%) translateY(-10px); }
+}
+
+/* ---------------- XO CONFETTI ---------------- */
+#xoConfettiLayer{
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9998;
+    overflow: hidden;
+}
+
+.xo-piece{
+    position: absolute;
+    top: -40px;
+    font-weight: 700;
+    font-size: 18px;
+    animation-name: xoFall;
+    animation-timing-function: ease-in;
+    animation-fill-mode: forwards;
+    text-shadow: 0 0 10px rgba(255,255,255,0.15);
+}
+
+@keyframes xoFall{
+    to{
+        transform: translate(var(--drift), 110vh) rotate(var(--rot));
+        opacity: 0.1;
+    }
+}
+
+/* ---------------- LIGHT PAGES ---------------- */
+.light-page{
+    background: #e5e5e5;
+    color: black;
+}
+
+.two-column{
+    display: flex;
+    gap: 20px;
+    width: min(960px, 92vw);
+    align-items: center;
+    justify-content: center;
+}
+
+.left, .right{
+    flex: 1;
+}
+
+.left img{
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.18);
+}
+
+.text-left{
+    text-align: left;
+}
+
+.big-line{
+    font-size: 20px;
+    margin-top: 12px;
+}
+
+.tagline{
+    text-align: center;
+    margin-top: 10px;
+    opacity: 0.85;
+}
+
+.highlight-box{
+    background: rgba(0,0,0,0.06);
+    padding: 14px;
+    border-radius: 14px;
+    margin: 14px 0;
+}
+
+.dress-list{
+    margin-left: 18px;
+    line-height: 1.8;
+}
+
+/* ---------------- CONTACT PAGE ---------------- */
+.big-contact{
+    font-size: 32px;
+}
+
+.dark-footer{
+    text-align: center;
+    padding: 18px 0;
+    background: #111;
+    color: white;
+    width: 100%;
+}
+
+/* ---------------- MOBILE RESPONSIVE ---------------- */
+@media (max-width: 768px) {
+
+    .page {
+        padding: 20px;
+        min-height: 100vh;
+    }
+
+    .two-column{
+        flex-direction: column;
+    }
+
+    .balloon-container{
+        height: 360px;
+    }
+
+    .big-title{
+        font-size: 30px;
+    }
+}
+
+/* ---------------- QUIZ (TRILOGY) ---------------- */
+body.quiz-open{
+    overflow: hidden !important;
+}
+
+/* Full-screen overlay quiz (separate from .page system) */
+.quiz-screen{
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: none;
+    background: rgba(0,0,0,0.92);
+    backdrop-filter: blur(8px);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 24px 0;
+}
+
+body.quiz-open .quiz-screen{
+    display: flex;
+}
+
+.quiz-inner{
+    width: min(780px, 92vw);
+    margin: 0 auto;
+    position: relative;
+    padding: 18px 0 40px;
+}
+
+.quiz-back-btn{
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(255,255,255,0.06);
+    color: #fff;
+    padding: 10px 12px;
+    border-radius: 12px;
+    cursor: pointer;
+    margin-bottom: 18px;
+}
+
+.quiz-title{
+    font-size: 26px;
+    letter-spacing: 0.3px;
+    margin-bottom: 6px;
+    color: #fff;
+}
+
+.quiz-subtitle{
+    opacity: 0.85;
+    margin-bottom: 18px;
+    color: #fff;
+}
+
+.quiz-album{
+    opacity: 0.95;
+    letter-spacing: 1px;
+}
+
+.quiz-form{
+    display: grid;
+    gap: 14px;
+}
+
+.quiz-q{
+    padding: 16px;
+    border-radius: 16px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+}
+
+.quiz-q h3{
+    margin-bottom: 10px;
+    font-size: 15px;
+    color: #fff;
+}
+
+.quiz-q label{
+    display: block;
+    padding: 10px 10px;
+    margin: 8px 0;
+    border-radius: 12px;
+    background: rgba(0,0,0,0.25);
+    border: 1px solid rgba(255,255,255,0.08);
+    cursor: pointer;
+    user-select: none;
+    color: rgba(255,255,255,0.92);
+}
+
+.quiz-q input{
+    margin-right: 10px;
+    transform: translateY(1px);
+}
+
+.quiz-finish-btn{
+    margin-top: 4px;
+    padding: 12px 16px;
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.18);
+    background: rgba(255,255,255,0.10);
+    color: #fff;
+    cursor: pointer;
+}
+
+.quiz-finish-btn:active{ transform: scale(0.99); }
+
+.quiz-result{
+    display: none;
+    margin-top: 16px;
+    padding: 16px;
+    border-radius: 18px;
+    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(0,0,0,0.55);
+    position: relative;
+    overflow: hidden;
+}
+
+.quiz-result-inner h2{
+    font-size: 20px;
+    margin-bottom: 6px;
+    color: #fff;
+}
+
+.quiz-result-inner p{
+    opacity: 0.9;
+    color: #fff;
+}
+
+.fade-soft{
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 700ms ease, transform 700ms ease;
+}
+.fade-soft.show{
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.result-cover{
+    width: min(360px, 86vw);
+    margin-top: 14px;
+    border-radius: 18px;
+    display: none;
+    border: 1px solid rgba(255,255,255,0.12);
+}
+
+.result-cover.show{ display:block; }
+
+.quiz-result-actions{
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 14px;
+}
+
+.quiz-retry-btn,
+.quiz-close-btn{
+    padding: 10px 14px;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.14);
+    background: rgba(255,255,255,0.08);
+    color: #fff;
+    cursor: pointer;
+}
+
+.quiz-overlay{
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    background: radial-gradient(circle at center, rgba(200,200,255,0.16), rgba(0,0,0,0.0) 60%);
+    transition: opacity 0.5s ease;
+}
+
+.quiz-overlay.on{ opacity: 1; }
+
+/* Teaser on last page */
+.quiz-teaser{
+    margin-top: 26px;
+    padding: 16px 14px;
+    border-radius: 16px;
+    background: rgba(0,0,0,0.10);
+    border: 1px solid rgba(0,0,0,0.08);
+    text-align: center;
+}
+
+.quiz-teaser-title{
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.quiz-teaser-sub{
+    font-size: 14px;
+    opacity: 0.85;
+    margin-bottom: 12px;
+}
+
+.quiz-play-btn{
+    padding: 12px 18px;
+    border-radius: 999px;
+    border: 1px solid rgba(0,0,0,0.18);
+    background: rgba(0,0,0,0.08);
+    cursor: pointer;
+}
+
+.quiz-play-btn:hover{ background: rgba(0,0,0,0.12); }
+
+@media (max-width: 480px){
+    .quiz-title{ font-size: 22px; }
+    .quiz-q{ padding: 14px; }
+    .quiz-q label{ padding: 10px; }
+}

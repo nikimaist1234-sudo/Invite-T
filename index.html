@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>XO Nights - Nikita Turns 21</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body class="locked">
+
+<!-- PAGE 0 (NEW) -->
+<section id="page0" class="page active volume-page">
+    <div class="overlay volume-overlay">
+        <h1 class="big-title">Please turn your volume up</h1>
+        <h2>for a full experience 🔊</h2>
+        <button class="primary" id="startBtn">I'm ready</button>
+    </div>
+</section>
+
+<!-- PAGE 1 -->
+<section id="page1" class="page">
+    <div class="overlay">
+        <h1 class="big-title">You're Invited</h1>
+        <h2>X'O Nights: Nikita Turns 21</h2>
+
+        <div class="balloon-area">
+            <p class="balloon-hint">Pop the balloons</p>
+            <div class="balloon-container" id="balloonContainer" aria-label="Balloon pop game"></div>
+        </div>
+    </div>
+</section>
+
+<!-- PAGE 2 -->
+<section id="page2" class="page light-page">
+    <div class="two-column">
+        <div class="left">
+            <img src="showup.jpg" alt="Event Image">
+        </div>
+
+        <div class="right text-left">
+            <h1>Show up!</h1>
+
+            <p><strong>Date:</strong> Saturday, 23rd May 2026</p>
+            <p><strong>Time:</strong> 16:00 for 16:30</p>
+            <p><strong>Address:</strong> 31 Swart Street, Randpark Ridge</p>
+
+            <p class="big-line"><strong>BOYB 🍾</strong></p>
+
+            <br>
+
+            <p><strong>Scroll for more Information</strong></p>
+        </div>
+    </div>
+</section>
+
+<!-- PAGE 3 -->
+<section id="page3" class="page light-page dress-layout">
+    <div class="two-column">
+        <div class="left">
+            <img src="trilogy.jpg" alt="Trilogy Album">
+            <p class="tagline">Dark room &amp; late nights</p>
+        </div>
+
+        <div class="right text-left">
+            <h1>Dress Code</h1>
+
+            <div class="highlight-box">
+                You have been chosen to represent Trilogy
+            </div>
+
+            <ul class="dress-list">
+                <li>Enter your Trilogy Era dressed in Black</li>
+                <li>Casual, comfort over beauty</li>
+            </ul>
+
+            <p><strong>Note:</strong> Your top/t-shirt should represent the dress code</p>
+        </div>
+    </div>
+</section>
+
+<!-- PAGE 4 -->
+<section id="page4" class="page light-page contact-layout">
+    <div class="two-column">
+        <div class="left text-left">
+            <h1 class="big-contact">Contact Details</h1>
+            <p>Contact Nikita for more information</p>
+        </div>
+
+        <div class="right text-left">
+            <h2>Phone Number</h2>
+            <p>0813270172</p>
+
+            <p><strong>RSVP:</strong> There is none, you have to come</p>
+            <br><br>
+            
+            <!-- QUIZ TEASER -->
+            <div class="quiz-teaser">
+                <h2 class="quiz-teaser-title">Find out what song you are from <span class="quiz-album">TRILOGY</span>.</h2>
+                <p class="quiz-teaser-sub">Participate if you want.</p>
+                <button class="quiz-play-btn" id="openQuizBtn" type="button">Click to play</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="dark-footer">
+        XO till we overdose
+    </footer>
+</section>
+
+
+<!-- QUIZ SCREEN (Overlay) -->
+<section id="pageQuiz" class="quiz-screen" aria-hidden="true">
+    <div class="quiz-inner">
+        <button class="quiz-back-btn" id="quizBackBtn" type="button">← Back to invite</button>
+
+        <h1 class="quiz-title">Which <span class="quiz-album">TRILOGY</span> song are you?</h1>
+        <p class="quiz-subtitle">10 quick picks. Soft reveal. Dark vibes.</p>
+
+        <form id="quizForm" class="quiz-form" autocomplete="off">
+
+            <div class="quiz-q">
+                <h3>1) Your 2AM vibe?</h3>
+                <label><input type="radio" name="q1" value="wicked-games"> I shouldn’t text… but I will.</label>
+                <label><input type="radio" name="q1" value="montreal"> Alone drive. City lights.</label>
+                <label><input type="radio" name="q1" value="the-morning"> Still outside. Still awake.</label>
+                <label><input type="radio" name="q1" value="valerie"> Quiet. In my head.</label>
+            </div>
+
+            <div class="quiz-q">
+                <h3>2) Pick a setting</h3>
+                <label><input type="radio" name="q2" value="high-for-this"> Dark room, close distance.</label>
+                <label><input type="radio" name="q2" value="coming-down"> Afterparty haze.</label>
+                <label><input type="radio" name="q2" value="the-fall"> Cold air, empty street.</label>
+                <label><input type="radio" name="q2" value="next"> Hotel bed, no feelings.</label>
+            </div>
+
+            <div class="quiz-q">
+                <h3>3) Your biggest weakness?</h3>
+                <label><input type="radio" name="q3" value="wicked-games"> Temptation.</label>
+                <label><input type="radio" name="q3" value="montreal"> Nostalgia.</label>
+                <label><input type="radio" name="q3" value="coming-down"> Escapism.</label>
+                <label><input type="radio" name="q3" value="next"> Detachment.</label>
+            </div>
+
+            <div class="quiz-q">
+                <h3>4) Pick a “movie scene”</h3>
+                <label><input type="radio" name="q4" value="the-morning"> Neon sign flicker.</label>
+                <label><input type="radio" name="q4" value="valerie"> Rain on the window.</label>
+                <label><input type="radio" name="q4" value="twenty-eight"> Elevator doors closing.</label>
+                <label><input type="radio" name="q4" value="the-fall"> Falling backwards in slow motion.</label>
+            </div>
+
+            <div class="quiz-q">
+                <h3>5) Your love style?</h3>
+                <label><input type="radio" name="q5" value="high-for-this"> Intense, risky.</label>
+                <label><input type="radio" name="q5" value="valerie"> Soft but hurt.</label>
+                <label><input type="radio" name="q5" value="next"> Don’t get attached.</label>
+                <label><input type="radio" name="q5" value="montreal"> I’ll miss you quietly.</label>
+            </div>
+
+            <div class="quiz-q">
+                <h3>6) Choose a color</h3>
+                <label><input type="radio" name="q6" value="wicked-games"> Deep red.</label>
+                <label><input type="radio" name="q6" value="montreal"> Midnight blue.</label>
+                <label><input type="radio" name="q6" value="the-morning"> Gold.</label>
+                <label><input type="radio" name="q6" value="coming-down"> Grey smoke.</label>
+            </div>
+
+            <div class="quiz-q">
+                <h3>7) People describe you as…</h3>
+                <label><input type="radio" name="q7" value="high-for-this"> Magnetic.</label>
+                <label><input type="radio" name="q7" value="next"> Unreadable.</label>
+                <label><input type="radio" name="q7" value="angel"> Tender but guarded.</label>
+                <label><input type="radio" name="q7" value="the-fall"> A little self-destructive.</label>
+            </div>
+
+            <div class="quiz-q">
+                <h3>8) Your comfort zone?</h3>
+                <label><input type="radio" name="q8" value="wicked-games"> Being wanted.</label>
+                <label><input type="radio" name="q8" value="montreal"> Being alone.</label>
+                <label><input type="radio" name="q8" value="the-morning"> Being in control.</label>
+                <label><input type="radio" name="q8" value="coming-down"> Being numb.</label>
+            </div>
+
+            <div class="quiz-q">
+                <h3>9) Pick a phrase</h3>
+                <label><input type="radio" name="q9" value="twenty-eight"> One more time.</label>
+                <label><input type="radio" name="q9" value="next"> Don’t fall for me.</label>
+                <label><input type="radio" name="q9" value="angel"> I’m trying.</label>
+                <label><input type="radio" name="q9" value="the-fall"> I can’t stop.</label>
+            </div>
+
+            <div class="quiz-q">
+                <h3>10) Be honest…</h3>
+                <label><input type="radio" name="q10" value="high-for-this"> You chase thrill.</label>
+                <label><input type="radio" name="q10" value="valerie"> You romanticize pain.</label>
+                <label><input type="radio" name="q10" value="twenty-eight"> You outgrow people fast.</label>
+                <label><input type="radio" name="q10" value="angel"> You hide feelings well.</label>
+            </div>
+
+            <button class="quiz-finish-btn" id="quizFinishBtn" type="button">Reveal my song</button>
+        </form>
+
+        <div class="quiz-result" id="quizResult" aria-live="polite">
+            <div class="quiz-result-inner fade-soft" id="quizResultInner"></div>
+            <img id="resultCover" class="result-cover" alt="Song cover" />
+            <div class="quiz-result-actions">
+                <button class="quiz-retry-btn" id="quizRetryBtn" type="button">Try again</button>
+                <button class="quiz-close-btn" id="quizCloseBtn" type="button">Back to invite</button>
+            </div>
+        </div>
+
+        <div class="quiz-overlay" id="quizOverlay"></div>
+    </div>
+</section>
+
+<!-- Result Audio (separate from invite music) -->
+<audio id="resultAudio" preload="auto"></audio>
+
+<!-- Audio -->
+<audio id="bgMusic" src="montreal.mp3" preload="auto"></audio>
+
+<script src="script.js"></script>
+</body>
+</html>
