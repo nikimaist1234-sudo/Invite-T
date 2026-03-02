@@ -1,6 +1,6 @@
 /* ===========================
    XO Nights Invite + Quiz
-   Full working script.js
+   Updated script.js
    =========================== */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -9,75 +9,19 @@ document.addEventListener("DOMContentLoaded", () => {
   const balloonContainer = document.getElementById("balloonContainer");
   const music = document.getElementById("bgMusic");
 
-  /* =========================================================
-     INVITE OPEN TRACKER (GitHub Pages friendly) + ANTI-SPAM
-     ========================================================= */
-
-  // Paste your webhook URL here (Google Apps Script Web App URL).
-  // If left empty, nothing will be sent.
-  const INVITE_OPEN_WEBHOOK = "https://script.google.com/macros/s/AKfycbwLTcX8Oi0fdLvEiUd0oqUrB7-tTzLxWi4Rl9bX2WNvC-Qj1UX8z4Fs40YWerslR6hYQA/exec";
-
-  // Anti-spam: only notify once per device per 24 hours
-  const INVITE_ANTISPAM_KEY = "xo_invite_open_notified_v1";
-  const INVITE_ANTISPAM_TTL_MS = 24 * 60 * 60 * 1000;
-
-  function shouldSendOpenPing() {
-    try {
-      const last = Number(localStorage.getItem(INVITE_ANTISPAM_KEY) || "0");
-      if (!last) return true;
-      return Date.now() - last > INVITE_ANTISPAM_TTL_MS;
-    } catch (e) {
-      // If storage is blocked, best-effort: still send
-      return true;
-    }
-  }
-
-  function markOpenPingSent() {
-    try {
-      localStorage.setItem(INVITE_ANTISPAM_KEY, String(Date.now()));
-    } catch (e) {}
-  }
-
-  function notifyInviteOpened() {
-    if (!INVITE_OPEN_WEBHOOK) return;
-
-    const payload = {
-      event: "invite_opened",
-      ts: new Date().toISOString(),
-      userAgent: navigator.userAgent,
-    };
-
-    // Use sendBeacon if available (best for pages that close quickly)
-    try {
-      if (navigator.sendBeacon) {
-        const blob = new Blob([JSON.stringify(payload)], { type: "application/json" });
-        const ok = navigator.sendBeacon(INVITE_OPEN_WEBHOOK, blob);
-        if (ok) return;
-      }
-    } catch (e) {}
-
-    // Fallback to fetch
-    fetch(INVITE_OPEN_WEBHOOK, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-      keepalive: true,
-    }).catch(() => {});
-  }
-
-  // Fire once on load (anti-spam)
-  if (shouldSendOpenPing()) {
-    notifyInviteOpened();
-    markOpenPingSent();
-  }
+  /* ✅ Change 1: Removed invite-open email/webhook tracking completely */
 
   /* ---------- Balloon game config ---------- */
-  const BALLOON_COUNT = 5;
-  const XO_BURST_FINISH = 180;
-  const XO_COLORS = ["#111", "#f2f2f2", "#777"];
+  // ✅ Change 4: 16 balloons total
+  const BALLOON_COUNT = 16;
+
+  // ✅ XO rain for 5 seconds
+  const XO_RAIN_DURATION_MS = 5000;
+  const XO_COLORS = ["#111", "#f2f2f2", "#777"]; // black, white, grey
 
   let poppedCount = 0;
   let musicStarted = false;
+  let finishing = false;
 
   // Prevent touch scrolling while locked (mobile)
   function preventScroll(e) {
@@ -117,37 +61,41 @@ document.addEventListener("DOMContentLoaded", () => {
 
     balloonContainer.innerHTML = "";
     poppedCount = 0;
+    finishing = false;
 
     const rect = balloonContainer.getBoundingClientRect();
-    const cx = rect.width / 2;
-    const cy = rect.height / 2;
+    const pad = 44;
 
-    const offsets = [
-      { x: -40, y: -10 },
-      { x: 40, y: -10 },
-      { x: 0, y: -55 },
-      { x: -20, y: 45 },
-      { x: 20, y: 45 },
-    ];
+    // Make a balanced list: 8 white + 8 light grey
+    const colors = [];
+    for (let i = 0; i < count; i++) {
+      colors.push(i < count / 2 ? "white" : "lightgrey");
+    }
+    shuffle(colors);
+
+    // Place balloons with simple "keep distance" logic
+    const placed = [];
+    const minDist = 64;
 
     for (let i = 0; i < count; i++) {
       const b = document.createElement("div");
-      b.className = "balloon-piece " + (i % 2 === 0 ? "white" : "black");
+      b.className = "balloon-piece " + colors[i];
 
-      const jitterX = rand(-10, 10);
-      const jitterY = rand(-8, 8);
+      let x, y;
+      let tries = 0;
 
-      const ox = offsets[i % offsets.length].x + jitterX;
-      const oy = offsets[i % offsets.length].y + jitterY;
+      do {
+        x = rand(pad, rect.width - pad);
+        y = rand(pad, rect.height - pad);
+        tries++;
+        if (tries > 200) break;
+      } while (!farEnough(x, y, placed, minDist));
 
-      const pad = 50;
-      const x = clamp(cx + ox, pad, rect.width - pad);
-      const y = clamp(cy + oy, pad, rect.height - pad);
+      placed.push({ x, y });
 
       b.style.left = x + "px";
       b.style.top = y + "px";
-
-      b.style.animationDuration = rand(2200, 3200) + "ms";
+      b.style.animationDuration = rand(2200, 3400) + "ms";
       b.style.animationDelay = rand(0, 450) + "ms";
 
       b.addEventListener("click", () => popBalloon(b));
@@ -156,6 +104,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function popBalloon(el) {
+    if (finishing) return;
     if (el.classList.contains("popped")) return;
 
     el.classList.add("popped");
@@ -164,9 +113,71 @@ document.addEventListener("DOMContentLoaded", () => {
     poppedCount++;
 
     if (poppedCount >= BALLOON_COUNT) {
-      xoConfettiBurst(XO_BURST_FINISH);
-      finishGame();
+      finishing = true;
+      // ✅ Change 5: XO rains on Page 1 for 5 seconds, then fade into invite
+      startXORain(XO_RAIN_DURATION_MS);
     }
+  }
+
+  /* ---------- XO Rain ---------- */
+  function startXORain(durationMs) {
+    // ensure still on page1
+    const page1 = document.getElementById("page1");
+
+    let layer = document.getElementById("xoRainLayer");
+    if (!layer) {
+      layer = document.createElement("div");
+      layer.id = "xoRainLayer";
+      document.body.appendChild(layer);
+    }
+
+    const start = Date.now();
+
+    const spawn = () => {
+      // spawn a small burst every tick
+      const burst = rand(10, 18);
+      for (let i = 0; i < burst; i++) {
+        const piece = document.createElement("div");
+        piece.className = "xo-piece";
+        piece.textContent = "XO";
+
+        const left = rand(0, window.innerWidth);
+        const duration = rand(1800, 3200);
+        const drift = rand(-140, 140) + "px";
+        const rot = rand(-540, 540) + "deg";
+
+        piece.style.left = left + "px";
+        piece.style.animationDuration = duration + "ms";
+        piece.style.color = XO_COLORS[rand(0, XO_COLORS.length - 1)];
+        piece.style.setProperty("--drift", drift);
+        piece.style.setProperty("--rot", rot);
+
+        layer.appendChild(piece);
+        setTimeout(() => piece.remove(), duration + 150);
+      }
+    };
+
+    // start raining immediately
+    spawn();
+    const rainTimer = setInterval(() => {
+      spawn();
+      if (Date.now() - start >= durationMs) {
+        clearInterval(rainTimer);
+
+        // fade page1 out, then reveal scroll invite
+        if (page1) page1.classList.add("fade-out");
+
+        setTimeout(() => {
+          cleanupXORain();
+          finishGame();
+        }, 850);
+      }
+    }, 140);
+  }
+
+  function cleanupXORain() {
+    const layer = document.getElementById("xoRainLayer");
+    if (layer) layer.remove();
   }
 
   /* ---------- Unlock scrolling after balloons ---------- */
@@ -180,53 +191,31 @@ document.addEventListener("DOMContentLoaded", () => {
     }, 350);
   }
 
-  /* ---------- XO confetti ---------- */
-  function xoConfettiBurst(amount) {
-    let layer = document.getElementById("xoConfettiLayer");
-    if (!layer) {
-      layer = document.createElement("div");
-      layer.id = "xoConfettiLayer";
-      document.body.appendChild(layer);
-    }
-
-    for (let i = 0; i < amount; i++) {
-      const piece = document.createElement("div");
-      piece.className = "xo-piece";
-      piece.textContent = "XO";
-
-      const left = rand(0, window.innerWidth);
-      const duration = rand(1400, 2600);
-      const drift = rand(-120, 120) + "px";
-      const rot = rand(-540, 540) + "deg";
-
-      piece.style.left = left + "px";
-      piece.style.animationDuration = duration + "ms";
-      piece.style.color = XO_COLORS[rand(0, XO_COLORS.length - 1)];
-      piece.style.setProperty("--drift", drift);
-      piece.style.setProperty("--rot", rot);
-
-      layer.appendChild(piece);
-      setTimeout(() => piece.remove(), duration + 250);
-    }
-
-    setTimeout(() => {
-      const l = document.getElementById("xoConfettiLayer");
-      if (l && l.children.length === 0) l.remove();
-    }, 3600);
-  }
-
   /* ---------- Helpers ---------- */
   function rand(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
-  function clamp(value, min, max) {
-    return Math.min(max, Math.max(min, value));
+
+  function farEnough(x, y, placed, minDist) {
+    for (const p of placed) {
+      const dx = x - p.x;
+      const dy = y - p.y;
+      if (Math.hypot(dx, dy) < minDist) return false;
+    }
+    return true;
+  }
+
+  function shuffle(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
   }
 
   /* ---------- Start button ---------- */
   function startExperience() {
     showOnlyPage(1);
-    startMusic();
+    startMusic();              // ✅ Change 3 uses montreal.mp3 via HTML src
     buildBalloons(BALLOON_COUNT);
   }
 
@@ -246,7 +235,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ===========================
-     QUIZ (6 Qs, 5 Songs)
+     QUIZ (unchanged)
      =========================== */
 
   const openQuizBtn = document.getElementById("openQuizBtn");
@@ -378,7 +367,6 @@ document.addEventListener("DOMContentLoaded", () => {
       if (scores[value] !== undefined) scores[value] += 1;
     }
 
-    // Ensure all 6 answered
     for (let i = 1; i <= 6; i++) {
       if (!data.get("q" + i)) return { error: "Answer all 6 questions first." };
     }
@@ -442,7 +430,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  /* ---------- Quiz button wiring ---------- */
   openQuizBtn?.addEventListener("click", openQuiz);
   quizBackBtn?.addEventListener("click", closeQuiz);
   quizCloseBtn?.addEventListener("click", closeQuiz);
