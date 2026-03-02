@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>XO Nights - Nikita Turns 21</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body class="locked">
+
+<section id="page0" class="page active volume-page">
+    <div class="overlay volume-overlay">
+        <h1 class="big-title">Please turn your volume up</h1>
+        <h2>for a full experience 🔊</h2>
+        <button class="primary" id="startBtn" type="button">I'm ready</button>
+    </div>
+</section>
+
+<section id="page1" class="page">
+    <div class="overlay">
+        <h1 class="big-title">You're Invited</h1>
+        <h2>X'O Nights: Nikita Turns 21</h2>
+
+        <div class="balloon-area">
+            <p class="balloon-hint">Pop the balloons</p>
+            <div class="balloon-container" id="balloonContainer" aria-label="Balloon pop game"></div>
+        </div>
+    </div>
+</section>
+
+<section id="page2" class="page light-page">
+    <div class="two-column">
+        <div class="left">
+            <img src="showup.jpg" alt="Event Image">
+        </div>
+
+        <div class="right text-left">
+            <h1>Show up!</h1>
+
+            <p><strong>Date:</strong> Saturday, 23rd May 2026</p>
+            <p><strong>Time:</strong> 16:00 for 16:30</p>
+            <p><strong>Address:</strong> 31 Swart Street, Randpark Ridge</p>
+
+            <p class="big-line"><strong>BOYB 🍾</strong></p>
+
+            <br>
+
+            <p><strong>Scroll for more Information</strong></p>
+        </div>
+    </div>
+</section>
+
+<section id="page3" class="page light-page dress-layout">
+    <div class="two-column">
+        <div class="left">
+            <img src="trilogy.jpg" alt="Trilogy Album">
+            <p class="tagline"><strong>Dark room &amp; Late Nights</strong></p>
+        </div>
+
+        <div class="right text-left">
+            <h1>Dress Code</h1>
+
+            <div class="highlight-box">
+                You have been chosen to represent <strong>Trilogy</strong>
+            </div>
+
+            <ul class="dress-list">
+                <li>Enter your Trilogy Era dressed in Black</li>
+                <li>Casual, comfort over beauty</li>
+            </ul>
+
+            <p><strong>Note:</strong> Your top/t-shirt should represent the dress code</p>
+        </div>
+    </div>
+</section>
+
+<section id="page4" class="page light-page contact-layout">
+    <div class="page4-content">
+        <div class="two-column">
+            <div class="left text-left">
+                <h1 class="big-contact">Contact Details</h1>
+                <p>Contact Nikita for more information</p>
+            </div>
+
+            <div class="right text-left">
+                <div class="contact-lines">
+                    <p class="contact-line">
+                        <span class="label">Phone Number</span><span class="colon">:</span>
+                        <span class="value">0813270172</span>
+                    </p>
+
+                    <p class="contact-line">
+                        <span class="label">RSVP</span><span class="colon">:</span>
+                        <span class="value">There is none, you have to come</span>
+                    </p>
+                </div>
+
+                <br><br>
+
+                <div class="quiz-teaser">
+                    <h2 class="quiz-teaser-title">Find out what song you are from in <span class="quiz-album">TRILOGY</span></h2>
+                    <p class="quiz-teaser-sub">Participate if you want</p>
+                    <button class="quiz-play-btn" id="openQuizBtn" type="button">Click to play</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="dark-footer">
+        XO till we overdose
+    </footer>
+</section>
+
+<section id="pageQuiz" class="quiz-screen" aria-hidden="true">
+    <div class="quiz-inner">
+        <button class="quiz-back-btn" id="quizBackBtn" type="button">← Back to invite</button>
+
+        <h1 class="quiz-title">Which <span class="quiz-album">TRILOGY</span> song are you?</h1>
+        <p class="quiz-subtitle">6 quick picks. Soft reveal. Dark vibes.</p>
+
+        <form id="quizForm" class="quiz-form" autocomplete="off">
+            <div class="quiz-q">
+                <h3>Your name</h3>
+                <input
+                    id="guestName"
+                    name="guestName"
+                    type="text"
+                    class="quiz-name"
+                    placeholder="Type your name…"
+                    maxlength="30"
+                    required
+                />
+            </div>
+
+            <!-- 6 QUESTION VERSION -->
+            <div class="quiz-q">
+                <h3>1) If you had to pick one guilty-pleasure snack at midnight, what is it?</h3>
+                <label><input type="radio" name="q1" value="wicked-games"> Chips + something spicy.</label>
+                <label><input type="radio" name="q1" value="the-morning"> Ice cream straight from the tub.</label>
+                <label><input type="radio" name="q1" value="coming-down"> Chocolate, always.</label>
+                <label><input type="radio" name="q1" value="high-for-this"> A sweet pastry / dessert.</label>
+                <label><input type="radio" name="q1" value="the-fall"> Whatever’s in the fridge… creatively.</label>
+            </div>
+
+            <div class="quiz-q">
+                <h3>2) Which language would you love to learn just for fun?</h3>
+                <label><input type="radio" name="q2" value="coming-down"> French.</label>
+                <label><input type="radio" name="q2" value="wicked-games"> Spanish.</label>
+                <label><input type="radio" name="q2" value="the-fall"> Italian.</label>
+                <label><input type="radio" name="q2" value="high-for-this"> Japanese.</label>
+                <label><input type="radio" name="q2" value="the-morning"> Hindi.</label>
+            </div>
+
+            <div class="quiz-q">
+                <h3>3) Favorite genre of music</h3>
+                <label><input type="radio" name="q3" value="the-morning"> Pop.</label>
+                <label><input type="radio" name="q3" value="coming-down"> R&amp;B.</label>
+                <label><input type="radio" name="q3" value="wicked-games"> 80’s and 90’s.</label>
+                <label><input type="radio" name="q3" value="the-fall"> Rap.</label>
+                <label><input type="radio" name="q3" value="high-for-this"> Amapiano.</label>
+            </div>
+
+            <div class="quiz-q">
+                <h3>4) Which one of these cities would you like to visit the most?</h3>
+                <label><input type="radio" name="q4" value="high-for-this"> Tokyo.</label>
+                <label><input type="radio" name="q4" value="the-fall"> New York.</label>
+                <label><input type="radio" name="q4" value="wicked-games"> Rio.</label>
+                <label><input type="radio" name="q4" value="coming-down"> Paris.</label>
+                <label><input type="radio" name="q4" value="the-morning"> Italy.</label>
+            </div>
+
+            <div class="quiz-q">
+                <h3>5) Pick a colour</h3>
+                <label><input type="radio" name="q5" value="wicked-games"> Black.</label>
+                <label><input type="radio" name="q5" value="the-morning"> White.</label>
+                <label><input type="radio" name="q5" value="the-fall"> Red.</label>
+                <label><input type="radio" name="q5" value="coming-down"> Blue.</label>
+                <label><input type="radio" name="q5" value="high-for-this"> Yellow.</label>
+            </div>
+
+            <div class="quiz-q">
+                <h3>6) Pick a Trilogy lyric</h3>
+                <label><input type="radio" name="q6" value="coming-down"> “I always want you when I’m coming down”</label>
+                <label><input type="radio" name="q6" value="wicked-games"> “So tell me you love me, even though you don’t love me”</label>
+                <label><input type="radio" name="q6" value="high-for-this"> “Trust me, girl, you wanna be high for this”</label>
+                <label><input type="radio" name="q6" value="the-morning"> “All that money, the money is the motive”</label>
+                <label><input type="radio" name="q6" value="the-fall"> “I ain’t scared of the fall, I’ve felt the ground before”</label>
+            </div>
+
+            <button class="quiz-finish-btn" id="quizFinishBtn" type="button">Reveal my song</button>
+        </form>
+
+        <div class="quiz-result" id="quizResult" aria-live="polite">
+            <div class="quiz-result-inner fade-soft" id="quizResultInner"></div>
+
+            <img id="resultCover" class="result-cover" alt="Song cover" />
+            <p id="resultBlurb" class="result-blurb"></p>
+
+            <div class="quiz-result-actions">
+                <button class="quiz-retry-btn" id="quizRetryBtn" type="button">Try again</button>
+                <button class="quiz-close-btn" id="quizCloseBtn" type="button">Back to invite</button>
+            </div>
+        </div>
+
+        <div class="quiz-overlay" id="quizOverlay"></div>
+    </div>
+</section>
+
+<audio id="resultAudio" preload="auto"></audio>
+<audio id="bgMusic" src="the-morning.mp3" preload="auto"></audio>
+
+<script src="script.js"></script>
+</body>
+</html>
