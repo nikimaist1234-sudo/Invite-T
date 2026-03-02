@@ -11,7 +11,7 @@ html, body {
     background: black;
 }
 
-/* ---------------- PAGE SYSTEM (Initial: Smooth Transitions) ---------------- */
+/* ---------------- PAGE SYSTEM ---------------- */
 .page {
     position: absolute;
     top: 0;
@@ -36,6 +36,13 @@ html, body {
     transform: scale(1);
 }
 
+/* Page 1 fade before scrolling reveal */
+#page1.fade-out{
+    opacity: 0 !important;
+    transform: scale(0.995);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
 /* ---------------- LOCK + SCROLL MODES ---------------- */
 body.locked{
     height: 100vh;
@@ -47,9 +54,6 @@ body.scroll-mode{
     overflow-y: auto;
 }
 
-/* When scroll mode is on:
-   - hide the intro pages
-   - stack pages 2-4 normally and make them visible */
 body.scroll-mode #page0,
 body.scroll-mode #page1{
     display: none;
@@ -76,8 +80,9 @@ body.scroll-mode #page4{
 }
 
 /* ---------------- PAGE 0: VOLUME ---------------- */
+/* Change 2: page 0 background.jpg */
 .volume-page{
-    background: url("weeknd-bg.jpg") no-repeat center center/cover;
+    background: url("background.jpg") no-repeat center center/cover;
 }
 
 .volume-overlay{
@@ -136,17 +141,19 @@ body.scroll-mode #page4{
 
 .balloon-piece{
     position: absolute;
-    width: 75px;
-    height: 95px;
+    width: 68px;
+    height: 88px;
     border-radius: 50% 50% 48% 48%;
     transform: translate(-50%, -50%);
     cursor: pointer;
     animation: floaty 2.8s ease-in-out infinite;
     box-shadow: 0 0 12px rgba(255,255,255,0.15);
+    user-select: none;
 }
 
-.balloon-piece.white{ background: rgba(240,240,240,0.92); }
-.balloon-piece.black{ background: rgba(20,20,20,0.92); }
+.balloon-piece.white{ background: rgba(245,245,245,0.92); }
+/* Change 4: light grey balloons */
+.balloon-piece.lightgrey{ background: rgba(185,185,185,0.92); }
 
 .balloon-piece::after{
     content: "";
@@ -170,8 +177,8 @@ body.scroll-mode #page4{
     50%{ transform: translate(-50%, -50%) translateY(-10px); }
 }
 
-/* ---------------- XO CONFETTI ---------------- */
-#xoConfettiLayer{
+/* ---------------- XO RAIN LAYER ---------------- */
+#xoRainLayer{
     position: fixed;
     inset: 0;
     pointer-events: none;
@@ -182,18 +189,19 @@ body.scroll-mode #page4{
 .xo-piece{
     position: absolute;
     top: -40px;
-    font-weight: 700;
+    font-weight: 800;
     font-size: 18px;
+    letter-spacing: 1px;
     animation-name: xoFall;
-    animation-timing-function: ease-in;
+    animation-timing-function: linear;
     animation-fill-mode: forwards;
-    text-shadow: 0 0 10px rgba(255,255,255,0.15);
+    text-shadow: 0 0 10px rgba(255,255,255,0.12);
 }
 
 @keyframes xoFall{
     to{
         transform: translate(var(--drift), 110vh) rotate(var(--rot));
-        opacity: 0.1;
+        opacity: 0.12;
     }
 }
 
@@ -230,7 +238,6 @@ body.scroll-mode #page4{
     margin-top: 12px;
 }
 
-/* UPDATED TAGLINE */
 .tagline{
     text-align: center;
     margin-top: 10px;
@@ -266,7 +273,6 @@ body.scroll-mode #page4{
     width: 100%;
 }
 
-/* --- Contact lines: aligned label : value --- */
 .contact-lines{
     margin-top: 10px;
 }
@@ -295,7 +301,6 @@ body.scroll-mode #page4{
     font-weight: 400;
 }
 
-/* Mobile: keep it neat and prevent weird wraps */
 @media (max-width: 480px){
     .contact-line{
         font-size: 16px;
@@ -305,7 +310,6 @@ body.scroll-mode #page4{
 
 /* ---------------- MOBILE RESPONSIVE ---------------- */
 @media (max-width: 768px) {
-
     .page {
         padding: 20px;
         min-height: 100vh;
@@ -324,20 +328,17 @@ body.scroll-mode #page4{
     }
 }
 
-/* ---------------- QUIZ (TRILOGY) ---------------- */
+/* ---------------- QUIZ ---------------- */
 body.quiz-open{
     overflow: hidden !important;
 }
 
-/* Full-screen overlay quiz (separate from .page system) */
 .quiz-screen{
     position: fixed;
     inset: 0;
     z-index: 9999;
     display: none;
-
     background: rgba(120,120,120,0.92);
-
     backdrop-filter: blur(8px);
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
@@ -402,7 +403,6 @@ body.quiz-open .quiz-screen{
     color: #fff;
 }
 
-/* Name input */
 .quiz-name{
     width: 100%;
     padding: 12px 12px;
@@ -522,7 +522,6 @@ body.quiz-open .quiz-screen{
 
 .quiz-overlay.on{ opacity: 1; }
 
-/* Teaser on last page */
 .quiz-teaser{
     margin-top: 26px;
     padding: 16px 14px;
@@ -559,7 +558,7 @@ body.quiz-open .quiz-screen{
     .quiz-q label{ padding: 10px; }
 }
 
-/* ---------------- PAGE 4: STICKY FOOTER + MOBILE ORDER FIX ---------------- */
+/* ---------------- PAGE 4: STICKY FOOTER ---------------- */
 #page4{
     display: flex;
     flex-direction: column;
@@ -587,9 +586,6 @@ body.quiz-open .quiz-screen{
     font-weight: 800 !important;
 }
 
-/* keep all your existing CSS */
-
-/* utility class (still safe to keep) */
 .is-hidden{
   display: none !important;
 }
