@@ -275,7 +275,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "coming-down": "You feel things deeply but you keep it cute.",
     "the-fall": "Big energy, big feelings, big main-character moments.",
     "the-morning": "Confidence is your thing. You show up, you shine.",
-    "wicked-games": "You’re playful, bold, and you know the power of a little chaos.",
+    "wicked-games": "You're playful, bold, and you know the power of a little chaos.",
     "high-for-this": "Magnetic. Fearless. The vibe wherever you go.",
   };
 
