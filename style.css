@@ -260,9 +260,22 @@ body.scroll-mode #page4{
     line-height: 1.8;
 }
 
+/* Page 3 Note and Keep Scrolling styles */
+.note-text{
+    margin-top: 10px;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+.keep-scrolling{
+    font-size: 18px;
+    margin-top: 8px;
+}
+
 /* ---------------- CONTACT PAGE ---------------- */
 .big-contact{
     font-size: 32px;
+    margin-bottom: 12px;
 }
 
 .dark-footer{
